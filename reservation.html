@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hot Restaurant Reservation</title>
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="text-danger text-center"><i class="fa fa-fire"></i>Hot Restaurant</h1>
+            <hr />
+            <h3>Make your reservation</h3>
+            <a href="/"><button class="btn btn-primary btn-lg my-3"><span class="fa fa-home mr-2"></span>Home</button></a>
+            <a href="/tables"><button class="btn btn-secondary btn-lg my-3"><span class="fa fa-table mr-2"></span>View
+                    tables</button></a>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <form method="POST" role="form">
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Name</label>
+                        <input type="email" class="form-control" id="name" placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Phome Number</label>
+                        <input type="text" class="form-control" id="number" placeholder="XXX XXX XX XX">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Email</label>
+                        <input type="text" class="form-control" id="email" placeholder="name@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Unique ID</label>
+                        <input type="text" class="form-control" id="id" placeholder="JohnDoe123">
+                    </div>
+                    <button type="submit" id="add-btn" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+        <hr />
+        <a href="/api/tables">API Table Link</a> | <a href="/api/waitlist">API Wait List</a>
+    </div>
+
+    <script type="text/javascript">
+        // Question: What does this code do?
+        $("#add-btn").on("click", function (event) {
+            event.preventDefault();
+
+            var newReservation = {
+                name: $("#name").val().trim(),
+                number: $("#number").val().trim(),
+                email: $("#email").val().trim(),
+                id: $("#id").val().trim()
+            };
+
+            $.post("/api/reservation", newReservation)
+                .then(function (data) {
+                    console.log("add.html", data);
+                    alert("Adding reservation...");
+            });
+        });
+    </script>
+</body>
+
+</html>
